@@ -1,21 +1,24 @@
 @baseUrl = http://localhost:3000
 
-### GET
-
-#findAll
+### findAll messages
 GET {{baseUrl}}/messages
 
-###
-
-#findById
+### findById message
 GET {{baseUrl}}/messages/1
 
-### POST
-
+### create message
 POST {{baseUrl}}/messages
 Content-Type: application/json
 
 {
     "message": "This is a message sent to the server",
     "description": "........."
+}
+
+### update message
+PATCH {{baseUrl}}/messages/1
+Content-Type: application/json
+
+{
+  "message": "Updated message"
 }

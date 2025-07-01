@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 
 @Controller('messages')
 export class MessagesController {
@@ -16,5 +16,14 @@ export class MessagesController {
   create(@Body() body: any) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return body;
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() body: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return {
+      id,
+      ...body,
+    };
   }
 }
