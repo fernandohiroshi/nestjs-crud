@@ -4,7 +4,7 @@
 GET {{baseUrl}}/messages
 
 ### findById message
-GET {{baseUrl}}/messages/1
+GET {{baseUrl}}/messages/2
 
 ### create message
 POST {{baseUrl}}/messages

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { MessageEntity } from './entities/message.entity';
 
 @Injectable()
@@ -20,7 +20,11 @@ export class MessagesService {
   }
 
   findById(id: string) {
-    return this.messages.find((message) => message.id === +id);
+    const message = this.messages.find((message) => message.id === +id);
+
+    if (message) return message;
+
+    throw new NotFoundException('Message not found');
   }
 
   create(body: any) {
@@ -42,15 +46,19 @@ export class MessagesService {
       (message) => message.id === +id,
     );
 
-    if (currentMessageIndex >= 0) {
-      const currentMessage = this.messages[currentMessageIndex];
-
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      this.messages[currentMessageIndex] = {
-        ...currentMessage,
-        ...body,
-      };
+    if (currentMessageIndex < 0) {
+      throw new NotFoundException('Message not found');
     }
+
+    const currentMessage = this.messages[currentMessageIndex];
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    this.messages[currentMessageIndex] = {
+      ...currentMessage,
+      ...body,
+    };
+
+    return this.messages[currentMessageIndex];
   }
 
   deleteById(id: string) {
@@ -58,8 +66,11 @@ export class MessagesService {
       (message) => message.id === +id,
     );
 
-    if (currentMessageIndex >= 0) {
-      this.messages.splice(currentMessageIndex, 1);
+    if (currentMessageIndex < 0) {
+      throw new NotFoundException('Message not found');
     }
+    const message = this.messages[currentMessageIndex];
+    this.messages.splice(currentMessageIndex, 1);
+    return message;
   }
 }
