@@ -1,0 +1,21 @@
+@baseUrl = http://localhost:3000
+
+### GET
+
+#findAll
+GET {{baseUrl}}/messages
+
+###
+
+#findById
+GET {{baseUrl}}/messages/1
+
+### POST
+
+POST {{baseUrl}}/messages
+Content-Type: application/json
+
+{
+    "message": "This is a message sent to the server",
+    "description": "........."
+}
