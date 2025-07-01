@@ -22,3 +22,6 @@ Content-Type: application/json
 {
   "message": "Updated message"
 }
+
+### deleteById message
+DELETE  {{baseUrl}}/messages/1
