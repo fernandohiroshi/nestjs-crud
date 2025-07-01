@@ -7,36 +7,36 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { MessagesService } from './messages.service';
 
 @Controller('messages')
 export class MessagesController {
+  constructor(private readonly messagesService: MessagesService) {}
+
   @Get()
   findAll() {
-    return 'This route returns all messages';
+    return this.messagesService.findAll();
   }
 
   @Get(':id')
   findById(@Param('id') id: string) {
-    return `This route returns a message by ID: ${id}`;
+    return this.messagesService.findById(id);
   }
 
   @Post()
   create(@Body() body: any) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return body;
+    return this.messagesService.create(body);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() body: any) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return {
-      id,
-      ...body,
-    };
+    return this.messagesService.update(id, body);
   }
 
   @Delete(':id')
   deleteById(@Param('id') id: string) {
-    return `This route delete a message by ID: ${id}`;
+    return this.messagesService.deleteById(id);
   }
 }
