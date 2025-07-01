@@ -1,5 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { MessageEntity } from './entities/message.entity';
+import { CreateMessageDto } from './dto/create-message.dto';
+import { UpdateMessageDto } from './dto/update-message.dto';
 
 @Injectable()
 export class MessagesService {
@@ -27,21 +29,23 @@ export class MessagesService {
     throw new NotFoundException('Message not found');
   }
 
-  create(body: any) {
+  create(createMessageDto: CreateMessageDto) {
     this.lastId++;
+
     const id = this.lastId;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const newMessage = {
       id,
-      ...body,
+      ...createMessageDto,
+      read: false,
+      date: new Date(),
     };
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
     this.messages.push(newMessage);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+
     return newMessage;
   }
 
-  update(id: string, body: any) {
+  update(id: string, updateMessaDto: UpdateMessageDto) {
     const currentMessageIndex = this.messages.findIndex(
       (message) => message.id === +id,
     );
@@ -52,10 +56,9 @@ export class MessagesService {
 
     const currentMessage = this.messages[currentMessageIndex];
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.messages[currentMessageIndex] = {
       ...currentMessage,
-      ...body,
+      ...updateMessaDto,
     };
 
     return this.messages[currentMessageIndex];
