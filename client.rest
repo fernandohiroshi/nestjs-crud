@@ -17,7 +17,7 @@ Content-Type: application/json
   }
 
 ### update message
-PATCH {{baseUrl}}/messages/2
+PATCH {{baseUrl}}/messages/4
 Content-Type: application/json
 
   {
@@ -26,4 +26,4 @@ Content-Type: application/json
   }
 
 ### deleteById message
-DELETE  {{baseUrl}}/messages/2
+DELETE  {{baseUrl}}/messages/3
