@@ -33,19 +33,34 @@ export class UsersService {
     }
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll() {
+    const users = await this.userRepository.find({
+      order: {
+        id: 'desc',
+      },
+    });
+
+    return users;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} user`;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    const user = await this.userRepository.findOneBy({
+      id,
+    });
+
+    if (!user) {
+      throw new ConflictException('User not found');
+    }
+
+    return this.userRepository.remove(user);
   }
 }
