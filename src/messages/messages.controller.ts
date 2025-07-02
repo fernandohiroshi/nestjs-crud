@@ -27,7 +27,6 @@ export class MessagesController {
 
   @Post()
   create(@Body() createMessageDto: CreateMessageDto) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return this.messagesService.create(createMessageDto);
   }
 
