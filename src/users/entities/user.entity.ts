@@ -12,12 +12,12 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   @IsEmail()
   email: string;
 
   @Column({ length: 100 })
-  password: string;
+  passwordHash: string;
 
   @Column({ length: 100 })
   name: string;
