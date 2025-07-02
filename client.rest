@@ -26,4 +26,4 @@ Content-Type: application/json
   }
 
 ### deleteById message
-DELETE  {{baseUrl}}/messages/3
+DELETE  {{baseUrl}}/messages/2

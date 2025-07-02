@@ -2,9 +2,16 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { MessageEntity } from './entities/message.entity';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class MessagesService {
+  constructor(
+    @InjectRepository(MessageEntity)
+    private readonly messageRepository: Repository<MessageEntity>,
+  ) {}
+
   private lastId = 1;
   private messages: MessageEntity[] = [
     {
@@ -17,32 +24,33 @@ export class MessagesService {
     },
   ];
 
-  findAll() {
-    return this.messages;
+  async findAll() {
+    const messages = await this.messageRepository.find();
+    return messages;
   }
 
-  findById(id: number) {
-    const message = this.messages.find((message) => message.id === id);
+  async findById(id: number) {
+    const message = await this.messageRepository.findOne({
+      where: {
+        id,
+      },
+    });
 
     if (message) return message;
 
     throw new NotFoundException('Message not found');
   }
 
-  create(createMessageDto: CreateMessageDto) {
-    this.lastId++;
-
-    const id = this.lastId;
+  async create(createMessageDto: CreateMessageDto) {
     const newMessage = {
-      id,
       ...createMessageDto,
       read: false,
       date: new Date(),
     };
 
-    this.messages.push(newMessage);
+    const message = this.messageRepository.create(newMessage);
 
-    return newMessage;
+    return this.messageRepository.save(message);
   }
 
   update(id: string, updateMessageDto: UpdateMessageDto) {
@@ -64,16 +72,15 @@ export class MessagesService {
     return this.messages[currentMessageIndex];
   }
 
-  deleteById(id: number) {
-    const currentMessageIndex = this.messages.findIndex(
-      (message) => message.id === id,
-    );
+  async deleteById(id: number) {
+    const message = await this.messageRepository.findOneBy({
+      id,
+    });
 
-    if (currentMessageIndex < 0) {
-      throw new NotFoundException('Message not found');
+    if (!message) {
+      throw new NotFoundException('Error deleting');
     }
-    const message = this.messages[currentMessageIndex];
-    this.messages.splice(currentMessageIndex, 1);
-    return message;
+
+    return this.messageRepository.remove(message);
   }
 }
