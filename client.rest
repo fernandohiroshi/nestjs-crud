@@ -50,12 +50,12 @@ Content-Type: application/json
   }
 
 ### update user
-PATCH {{baseUrl}}/users/4
+PATCH {{baseUrl}}/users/10
 Content-Type: application/json
 
   {
-    "text": "Update User!",
-    "read": true
+    "name": "Bruce",
+    "password": "123456"
   }
 
 ### deleteById user

@@ -47,9 +47,21 @@ export class UsersService {
     return `This action returns a #${id} user`;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const userData = {
+      name: updateUserDto?.name,
+      passwordHash: updateUserDto?.password,
+    };
+    const user = await this.userRepository.preload({
+      id,
+      ...userData,
+    });
+
+    if (!user) {
+      throw new ConflictException('User not found');
+    }
+
+    return this.userRepository.save(user);
   }
 
   async remove(id: number) {
