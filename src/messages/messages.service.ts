@@ -21,8 +21,8 @@ export class MessagesService {
     return this.messages;
   }
 
-  findById(id: string) {
-    const message = this.messages.find((message) => message.id === +id);
+  findById(id: number) {
+    const message = this.messages.find((message) => message.id === id);
 
     if (message) return message;
 
@@ -64,9 +64,9 @@ export class MessagesService {
     return this.messages[currentMessageIndex];
   }
 
-  deleteById(id: string) {
+  deleteById(id: number) {
     const currentMessageIndex = this.messages.findIndex(
-      (message) => message.id === +id,
+      (message) => message.id === id,
     );
 
     if (currentMessageIndex < 0) {

@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -21,7 +22,7 @@ export class MessagesController {
   }
 
   @Get(':id')
-  findById(@Param('id') id: string) {
+  findById(@Param('id', ParseIntPipe) id: number) {
     return this.messagesService.findById(id);
   }
 
@@ -36,7 +37,8 @@ export class MessagesController {
   }
 
   @Delete(':id')
-  deleteById(@Param('id') id: string) {
+  deleteById(@Param('id', ParseIntPipe) id: number) {
+    console.log(id, typeof id);
     return this.messagesService.deleteById(id);
   }
 }

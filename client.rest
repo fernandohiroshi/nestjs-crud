@@ -13,9 +13,7 @@ Content-Type: application/json
   {
     "text": "New Message!",
     "from": "Alice",
-    "to": "Bob",
-    "read": false,
-    "date": "2025-07-01T06:40:25.963Z"
+    "to": "Bob"
   }
 
 ### update message
