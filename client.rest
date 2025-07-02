@@ -24,10 +24,7 @@ Content-Type: application/json
 
   {
     "text": "Update Message!",
-    "from": "Alice",
-    "to": "Bob",
-    "read": false,
-    "date": "2025-07-01T06:40:25.963Z"
+    "read": true
   }
 
 ### deleteById message

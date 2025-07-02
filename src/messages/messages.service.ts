@@ -45,7 +45,7 @@ export class MessagesService {
     return newMessage;
   }
 
-  update(id: string, updateMessaDto: UpdateMessageDto) {
+  update(id: string, updateMessageDto: UpdateMessageDto) {
     const currentMessageIndex = this.messages.findIndex(
       (message) => message.id === +id,
     );
@@ -58,7 +58,7 @@ export class MessagesService {
 
     this.messages[currentMessageIndex] = {
       ...currentMessage,
-      ...updateMessaDto,
+      ...updateMessageDto,
     };
 
     return this.messages[currentMessageIndex];
