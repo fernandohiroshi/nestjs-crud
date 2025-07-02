@@ -38,7 +38,6 @@ export class MessagesController {
 
   @Delete(':id')
   deleteById(@Param('id', ParseIntPipe) id: number) {
-    console.log(id, typeof id);
     return this.messagesService.deleteById(id);
   }
 }
