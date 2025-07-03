@@ -4,6 +4,8 @@
 
 ### findAll messages
 GET {{baseUrl}}/messages
+?limit=10
+&offset=0
 
 ### findById message
 GET {{baseUrl}}/messages/12
@@ -35,6 +37,8 @@ DELETE  {{baseUrl}}/messages/12
 
 ### findAll users
 GET {{baseUrl}}/users
+?limit=10
+&offset=0
 
 ### findById user
 GET {{baseUrl}}/users/12
