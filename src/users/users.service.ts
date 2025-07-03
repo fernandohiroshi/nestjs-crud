@@ -26,7 +26,7 @@ export class UsersService {
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (error.code === '23505') {
-        throw new ConflictException('E-MAIL ALREADY EXISTS');
+        throw new ConflictException('E-mail already exists');
       }
 
       throw error;
@@ -43,8 +43,16 @@ export class UsersService {
     return users;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number) {
+    const user = await this.userRepository.findOneBy({
+      id,
+    });
+
+    if (!user) {
+      throw new ConflictException('User not found');
+    }
+
+    return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {

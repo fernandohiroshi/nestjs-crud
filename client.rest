@@ -6,20 +6,20 @@
 GET {{baseUrl}}/messages
 
 ### findById message
-GET {{baseUrl}}/messages/2
+GET {{baseUrl}}/messages/12
 
 ### create message
 POST {{baseUrl}}/messages
 Content-Type: application/json
 
   {
-    "text": "New Message!",
-    "from": "Alice",
-    "to": "Bob"
+    "text": "hello world",
+    "fromId": 11,
+    "toId": 12
   }
 
 ### update message
-PATCH {{baseUrl}}/messages/4
+PATCH {{baseUrl}}/messages/11
 Content-Type: application/json
 
   {
@@ -28,7 +28,7 @@ Content-Type: application/json
   }
 
 ### deleteById message
-DELETE  {{baseUrl}}/messages/3
+DELETE  {{baseUrl}}/messages/10
 
 
 ################################## USERS ##################################
@@ -37,26 +37,26 @@ DELETE  {{baseUrl}}/messages/3
 GET {{baseUrl}}/users
 
 ### findById user
-GET {{baseUrl}}/users/2
+GET {{baseUrl}}/users/12
 
 ### create user
 POST {{baseUrl}}/users
 Content-Type: application/json
 
-  {
-    "name": "Bruce",
-    "email": "bruce@gmail.com",
-    "password": "123456"
-  }
+{
+  "name": "bruce",
+  "email": "bruce@gmail.com",
+  "password": "123456"
+}
 
 ### update user
-PATCH {{baseUrl}}/users/10
+PATCH {{baseUrl}}/users/12
 Content-Type: application/json
 
   {
-    "name": "Bruce",
+    "name": "Bruce Wayne",
     "password": "123456"
   }
 
 ### deleteById user
-DELETE  {{baseUrl}}/users/7
+DELETE  {{baseUrl}}/users/10

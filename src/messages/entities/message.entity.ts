@@ -1,7 +1,10 @@
+import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -14,12 +17,6 @@ export class MessageEntity {
   @Column({ type: 'varchar', length: 255 })
   text: string;
 
-  @Column({ type: 'varchar', length: 50 })
-  from: string;
-
-  @Column({ type: 'varchar', length: 50 })
-  to: string;
-
   @Column({ default: false })
   read: boolean;
 
@@ -31,4 +28,12 @@ export class MessageEntity {
 
   @UpdateDateColumn()
   updatedAt?: Date;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'from' })
+  from: User;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'to' })
+  to: User;
 }
