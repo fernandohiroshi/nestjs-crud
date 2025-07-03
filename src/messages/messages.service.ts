@@ -85,19 +85,10 @@ export class MessagesService {
   }
 
   async update(id: number, updateMessageDto: UpdateMessageDto) {
-    const partialUpdateMessageDto = {
-      read: updateMessageDto?.read,
-      text: updateMessageDto?.text,
-    };
+    const message = await this.findById(id);
 
-    const message = await this.messageRepository.preload({
-      id,
-      ...partialUpdateMessageDto,
-    });
-
-    if (!message) {
-      throw new NotFoundException('Update Error');
-    }
+    message.text = updateMessageDto?.text ?? message.text;
+    message.read = updateMessageDto?.read ?? message.read;
 
     await this.messageRepository.save(message);
 

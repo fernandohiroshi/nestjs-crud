@@ -13,22 +13,22 @@ POST {{baseUrl}}/messages
 Content-Type: application/json
 
   {
-    "text": "hello world",
-    "fromId": 11,
-    "toId": 12
+    "text": "go to japan!?",
+    "fromId": 14,
+    "toId": 13
   }
 
 ### update message
-PATCH {{baseUrl}}/messages/11
+PATCH {{baseUrl}}/messages/15
 Content-Type: application/json
 
   {
-    "text": "Update Message!",
+    "text": "Update Message!!!!!!!!",
     "read": true
   }
 
 ### deleteById message
-DELETE  {{baseUrl}}/messages/10
+DELETE  {{baseUrl}}/messages/12
 
 
 ################################## USERS ##################################
@@ -44,8 +44,8 @@ POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
-  "name": "bruce",
-  "email": "bruce@gmail.com",
+  "name": "tanaka",
+  "email": "tanaka@gmail.com",
   "password": "123456"
 }
 
@@ -59,4 +59,4 @@ Content-Type: application/json
   }
 
 ### deleteById user
-DELETE  {{baseUrl}}/users/10
+DELETE  {{baseUrl}}/users/12
