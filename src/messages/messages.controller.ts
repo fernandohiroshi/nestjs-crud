@@ -8,17 +8,20 @@ import {
   Post,
   Query,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { PaginationDto } from 'src/app/common/dto/pagination.dto';
 import { Request } from 'express';
+import { IsAdminGuard } from 'src/app/common/guards/is-admin.guard';
 
 @Controller('messages')
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
 
+  @UseGuards(IsAdminGuard)
   @Get()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async findAll(@Query() paginationDto: PaginationDto, @Req() req: Request) {
