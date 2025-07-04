@@ -6,9 +6,11 @@
 GET {{baseUrl}}/messages
 ?limit=10
 &offset=0
+Authorization: Bearer 123456
+
 
 ### findById message
-GET {{baseUrl}}/messages/12
+GET {{baseUrl}}/messages/24
 
 ### create message
 POST {{baseUrl}}/messages
@@ -21,7 +23,7 @@ Content-Type: application/json
   }
 
 ### update message
-PATCH {{baseUrl}}/messages/15
+PATCH {{baseUrl}}/messages/27
 Content-Type: application/json
 
   {
@@ -30,7 +32,7 @@ Content-Type: application/json
   }
 
 ### deleteById message
-DELETE  {{baseUrl}}/messages/12
+DELETE  {{baseUrl}}/messages/27
 
 
 ################################## USERS ##################################
