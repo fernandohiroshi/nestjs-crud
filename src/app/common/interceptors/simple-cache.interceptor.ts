@@ -11,14 +11,12 @@ export class SimpleCacheInterceptor implements NestInterceptor {
   private readonly cache = new Map();
 
   async intercept(context: ExecutionContext, next: CallHandler<any>) {
-    console.log(`SimpleCacheInterceptor start...`);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const request = context.switchToHttp().getRequest();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const url = request.url;
 
     if ((this, this.cache.has(url))) {
-      console.log('Is in the URL', url);
       return of(this.cache.get(url));
     }
 
@@ -27,7 +25,6 @@ export class SimpleCacheInterceptor implements NestInterceptor {
     return next.handle().pipe(
       tap((data) => {
         this.cache.set(url, data);
-        console.log('IN CACHE!!!', url);
       }),
     );
   }

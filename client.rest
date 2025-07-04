@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:3000
 
-################################## MESSAGES ##################################
+### MESSAGES ###
 
 ### findAll messages
 GET {{baseUrl}}/messages
@@ -10,32 +10,32 @@ Authorization: Bearer 123456
 
 
 ### findById message
-GET {{baseUrl}}/messages/24
+GET {{baseUrl}}/messages/30
 
 ### create message
 POST {{baseUrl}}/messages
 Content-Type: application/json
 
   {
-    "text": "go to japan!?",
+    "text": "go to EUA!",
     "fromId": 14,
     "toId": 13
   }
 
 ### update message
-PATCH {{baseUrl}}/messages/27
+PATCH {{baseUrl}}/messages/30
 Content-Type: application/json
 
   {
-    "text": "Update Message!!!!!!!!",
+    "text": "I like coca cola!!!",
     "read": true
   }
 
 ### deleteById message
-DELETE  {{baseUrl}}/messages/27
+DELETE  {{baseUrl}}/messages/17
 
 
-################################## USERS ##################################
+### USERS ###
 
 ### findAll users
 GET {{baseUrl}}/users
@@ -43,26 +43,26 @@ GET {{baseUrl}}/users
 &offset=0
 
 ### findById user
-GET {{baseUrl}}/users/12
+GET {{baseUrl}}/users/15
 
 ### create user
 POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
-  "name": "tanaka",
-  "email": "tanaka@gmail.com",
+  "name": "Marley",
+  "email": "marley@gmail.com",
   "password": "123456"
 }
 
 ### update user
-PATCH {{baseUrl}}/users/12
+PATCH {{baseUrl}}/users/17
 Content-Type: application/json
 
   {
-    "name": "Bruce Wayne",
+    "name": "Marley",
     "password": "123456"
   }
 
 ### deleteById user
-DELETE  {{baseUrl}}/users/12
+DELETE  {{baseUrl}}/users/17

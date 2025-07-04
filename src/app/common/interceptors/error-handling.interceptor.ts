@@ -11,8 +11,6 @@ import { catchError, throwError } from 'rxjs';
 export class ErrorHandlingInterceptor implements NestInterceptor {
   // eslint-disable-next-line @typescript-eslint/require-await
   async intercept(context: ExecutionContext, next: CallHandler<any>) {
-    console.log(`ErrorHandlingInterceptor start...`);
-
     return next.handle().pipe(
       catchError((err) => {
         return throwError(() => {
