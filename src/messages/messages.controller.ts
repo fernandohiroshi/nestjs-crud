@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   Param,
   Patch,
   Post,
@@ -12,10 +13,20 @@ import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { PaginationDto } from 'src/app/common/dto/pagination.dto';
+import { MessagesUtils } from './messages.utils';
+import { RegexProtocol } from 'src/app/common/regex/protocol.regex';
+import { ONLY_LOWERCASE_REGEX, REMOVE_SPACES_REGEX } from './messages.constant';
 
 @Controller('messages')
 export class MessagesController {
-  constructor(private readonly messagesService: MessagesService) {}
+  constructor(
+    private readonly messagesService: MessagesService,
+    private readonly messagesUtils: MessagesUtils,
+    @Inject(REMOVE_SPACES_REGEX)
+    private readonly removeSpacesRegex: RegexProtocol,
+    @Inject(ONLY_LOWERCASE_REGEX)
+    private readonly onlyLowercaseRegex: RegexProtocol,
+  ) {}
 
   @Get()
   async findAll(@Query() paginationDto: PaginationDto) {
@@ -25,6 +36,8 @@ export class MessagesController {
 
   @Get(':id')
   findById(@Param('id') id: number) {
+    console.log(this.removeSpacesRegex.execute('Hello World !!!'));
+    console.log(this.onlyLowercaseRegex.execute('Hello World !!!'));
     return this.messagesService.findById(id);
   }
 

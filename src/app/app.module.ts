@@ -4,7 +4,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '../users/users.module';
 
 @Module({
-  imports: [MessagesModule, UsersModule],
+  imports: [
+
+    MessagesModule,
+    UsersModule,
+  ],
   controllers: [],
   providers: [],
 })
