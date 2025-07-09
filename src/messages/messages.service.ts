@@ -16,7 +16,7 @@ export class MessagesService {
   ) {}
 
   throwNotFoundError() {
-    throw new NotFoundException('Recado não encontrado');
+    throw new NotFoundException('Message not found!');
   }
 
   async findAll(paginationDto?: PaginationDto) {

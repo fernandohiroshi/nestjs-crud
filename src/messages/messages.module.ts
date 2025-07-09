@@ -4,9 +4,15 @@ import { MessagesService } from './messages.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MessageEntity } from './entities/message.entity';
 import { UsersModule } from 'src/users/users.module';
+import { ConfigModule } from '@nestjs/config';
+import messagesConfig from './messages.config';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MessageEntity]), UsersModule],
+  imports: [
+    ConfigModule.forFeature(messagesConfig),
+    TypeOrmModule.forFeature([MessageEntity]),
+    UsersModule,
+  ],
   controllers: [MessagesController],
   providers: [MessagesService], // Is possible use useFactory in providers
 })
