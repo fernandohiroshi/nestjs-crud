@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { HashingService } from './hashing/hashing.service';
 import jwtConfig from './config/jwt.config';
 import { ConfigType } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
@@ -17,37 +18,43 @@ export class AuthService {
 
     @Inject(jwtConfig.KEY)
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
-  ) {
-    console.log(jwtConfiguration);
-  }
+
+    private readonly jwtService: JwtService,
+  ) {}
 
   async login(loginDto: LoginDto) {
-    let passwordIsValid = false;
-    let throwError = true;
-
     const user = await this.userRepository.findOneBy({
       email: loginDto.email,
     });
 
-    if (user) {
-      passwordIsValid = await this.hashingService.compare(
-        loginDto.password,
-        user.passwordHash,
-      );
-    }
-
-    if (passwordIsValid) {
-      throwError = false;
-    }
-
-    if (throwError) {
+    if (!user) {
       throw new UnauthorizedException('invalid user or password!');
     }
 
-    // here create token
+    const passwordIsValid = await this.hashingService.compare(
+      loginDto.password,
+      user.passwordHash,
+    );
+
+    if (!passwordIsValid) {
+      throw new UnauthorizedException('invalid user or password!');
+    }
+
+    const accessToken = await this.jwtService.signAsync(
+      {
+        sub: user.id,
+        email: user.email,
+      },
+      {
+        audience: this.jwtConfiguration.audience,
+        issuer: this.jwtConfiguration.issuer,
+        secret: this.jwtConfiguration.secret,
+        expiresIn: this.jwtConfiguration.ttl,
+      },
+    );
 
     return {
-      message: 'user logged in!',
+      accessToken,
     };
   }
 }

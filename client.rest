@@ -42,6 +42,7 @@ DELETE  {{baseUrl}}/messages/17
 GET {{baseUrl}}/users
 ?limit=10
 &offset=0
+Authorization: Bearer 123456
 
 ### findById user
 GET {{baseUrl}}/users/15
