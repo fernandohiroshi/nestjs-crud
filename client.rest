@@ -1,5 +1,6 @@
 @baseUrl = http://localhost:3000
 
+
 ### MESSAGES ###
 
 ### findAll messages
@@ -50,19 +51,31 @@ POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
-  "name": "Marley",
-  "email": "marley@gmail.com",
+  "name": "Lex",
+  "email": "lex@gmail.com",
   "password": "123456"
 }
 
 ### update user
-PATCH {{baseUrl}}/users/17
+PATCH {{baseUrl}}/users/18
 Content-Type: application/json
 
   {
-    "name": "Marley",
     "password": "123456"
   }
 
 ### deleteById user
 DELETE  {{baseUrl}}/users/17
+
+
+
+### AUTH ###
+
+### findAll users
+POST {{baseUrl}}/auth/
+Content-Type: application/json
+
+{
+  "email": "lex@gmail.com",
+  "password": "123456"
+}
