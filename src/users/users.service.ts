@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { HashingService } from 'src/auth/hashing/hashing.service';
+import { TokenPayloadDto } from 'src/auth/dto/token-payload.dto';
 
 @Injectable()
 export class UsersService {
@@ -62,7 +63,12 @@ export class UsersService {
     return user;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    tokenPayload: TokenPayloadDto,
+  ) {
     const usersData = {
       name: updateUserDto?.name,
     };
@@ -87,7 +93,8 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
-  async remove(id: number) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async remove(id: number, tokenPayload: TokenPayloadDto) {
     const user = await this.userRepository.findOneBy({
       id,
     });

@@ -1,5 +1,7 @@
 @baseUrl = http://localhost:3000
 
+@authToken = {{authenticate.response.body.accessToken}}
+
 
 ### MESSAGES ###
 
@@ -7,7 +9,7 @@
 GET {{baseUrl}}/messages
 ?limit=10
 &offset=0
-Authorization: Bearer 123456
+Authorization: Bearer {{authToken}}
 
 
 ### findById message
@@ -42,41 +44,46 @@ DELETE  {{baseUrl}}/messages/17
 GET {{baseUrl}}/users
 ?limit=10
 &offset=0
-Authorization: Bearer 123456
+Authorization: Bearer {{authToken}}
 
 ### findById user
-GET {{baseUrl}}/users/15
+GET {{baseUrl}}/users/18
+Authorization: Bearer {{authToken}}
+
 
 ### create user
 POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
-  "name": "Lex",
-  "email": "lex@gmail.com",
+  "name": "Ingrid",
+  "email": "ingrid@gmail.com",
   "password": "123456"
 }
 
 ### update user
-PATCH {{baseUrl}}/users/18
+PATCH {{baseUrl}}/users/19
+Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
   {
-    "password": "123456"
+    "name": "Patricia",
   }
 
 ### deleteById user
-DELETE  {{baseUrl}}/users/17
+DELETE  {{baseUrl}}/users/19
+Authorization: Bearer {{authToken}}
 
 
 
 ### AUTH ###
 
-### findAll users
+### authentication
+# @name authenticate
 POST {{baseUrl}}/auth/
 Content-Type: application/json
 
 {
-  "email": "lex@gmail.com",
+  "email": "ingrid@gmail.com",
   "password": "123456"
 }
