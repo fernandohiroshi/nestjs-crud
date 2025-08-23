@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -66,7 +70,6 @@ export class UsersService {
   async update(
     id: number,
     updateUserDto: UpdateUserDto,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     tokenPayload: TokenPayloadDto,
   ) {
     const usersData = {
@@ -90,10 +93,13 @@ export class UsersService {
       throw new ConflictException('User not found');
     }
 
+    if (user.id !== tokenPayload.sub) {
+      throw new ForbiddenException('You are not allowed to update this user');
+    }
+
     return this.userRepository.save(user);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async remove(id: number, tokenPayload: TokenPayloadDto) {
     const user = await this.userRepository.findOneBy({
       id,
@@ -101,6 +107,10 @@ export class UsersService {
 
     if (!user) {
       throw new ConflictException('User not found');
+    }
+
+    if (user.id !== tokenPayload.sub) {
+      throw new ForbiddenException('You are not allowed to update this user');
     }
 
     return this.userRepository.remove(user);

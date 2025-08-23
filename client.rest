@@ -47,7 +47,7 @@ GET {{baseUrl}}/users
 Authorization: Bearer {{authToken}}
 
 ### findById user
-GET {{baseUrl}}/users/18
+GET {{baseUrl}}/users/20
 Authorization: Bearer {{authToken}}
 
 
@@ -62,16 +62,16 @@ Content-Type: application/json
 }
 
 ### update user
-PATCH {{baseUrl}}/users/19
+PATCH {{baseUrl}}/users/18
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
   {
-    "name": "Patricia",
+    "name": "Patricia"
   }
 
 ### deleteById user
-DELETE  {{baseUrl}}/users/19
+DELETE  {{baseUrl}}/users/18
 Authorization: Bearer {{authToken}}
 
 
