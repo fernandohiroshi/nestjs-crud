@@ -2,6 +2,8 @@
 
 @authToken = {{authenticate.response.body.accessToken}}
 
+@refreshToken = {{authenticate.response.body.refreshToken}}
+
 
 ### MESSAGES ###
 
@@ -35,7 +37,7 @@ Content-Type: application/json
   }
 
 ### deleteById message
-DELETE  {{baseUrl}}/messages/33
+DELETE  {{baseUrl}}/messages/34
 Authorization: Bearer {{authToken}}
 
 
@@ -87,4 +89,13 @@ Content-Type: application/json
 {
   "email": "ingrid@gmail.com",
   "password": "123456"
+}
+
+### re-authentication
+# @name reAuthenticate
+POST {{baseUrl}}/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
 }

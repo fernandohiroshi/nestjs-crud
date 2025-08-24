@@ -7,6 +7,7 @@ import { HashingService } from './hashing/hashing.service';
 import jwtConfig from './config/jwt.config';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 @Injectable()
 export class AuthService {
@@ -40,21 +41,65 @@ export class AuthService {
       throw new UnauthorizedException('invalid user or password!');
     }
 
-    const accessToken = await this.jwtService.signAsync(
+    return this.createTokens(user);
+  }
+
+  private async createTokens(user: User) {
+    const accessTokenPromise = this.signJwtAsync<Partial<User>>(
+      user.id,
+      this.jwtConfiguration.ttl,
+      { email: user.email },
+    );
+
+    const refreshTokenPromise = this.signJwtAsync(
+      user.id,
+      this.jwtConfiguration.refreshTtl,
+      {},
+    );
+
+    const [accessToken, refreshToken] = await Promise.all([
+      accessTokenPromise,
+      refreshTokenPromise,
+    ]);
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+
+  private async signJwtAsync<T>(sub: number, expiresIn: number, payload: T) {
+    return await this.jwtService.signAsync(
       {
-        sub: user.id,
-        email: user.email,
+        sub,
+        ...payload,
       },
       {
         audience: this.jwtConfiguration.audience,
         issuer: this.jwtConfiguration.issuer,
         secret: this.jwtConfiguration.secret,
-        expiresIn: this.jwtConfiguration.ttl,
+        expiresIn,
       },
     );
+  }
 
-    return {
-      accessToken,
-    };
+  async refreshTokens(refreshTokenDto: RefreshTokenDto) {
+    try {
+      const { sub } = await this.jwtService.verifyAsync<{ sub: number }>(
+        refreshTokenDto.refreshToken,
+        this.jwtConfiguration,
+      );
+
+      const user = await this.userRepository.findOneBy({ id: sub });
+
+      if (!user) {
+        throw new UnauthorizedException('invalid refresh token!');
+      }
+
+      return this.createTokens(user);
+    } catch (error) {
+      console.error(error);
+      throw new UnauthorizedException('invalid refresh token!');
+    }
   }
 }
