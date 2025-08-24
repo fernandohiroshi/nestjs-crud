@@ -9,33 +9,34 @@
 GET {{baseUrl}}/messages
 ?limit=10
 &offset=0
-Authorization: Bearer {{authToken}}
 
 
 ### findById message
-GET {{baseUrl}}/messages/30
+GET {{baseUrl}}/messages/31
 
 ### create message
 POST {{baseUrl}}/messages
+Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
   {
-    "text": "go to EUA!",
-    "fromId": 14,
+    "text": "go to ITALIA!",
     "toId": 13
   }
 
 ### update message
-PATCH {{baseUrl}}/messages/30
+PATCH {{baseUrl}}/messages/33
+Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
   {
-    "text": "I like coca cola!!!",
-    "read": true
+    "text": "BATMAN!!!",
+    "read": false
   }
 
 ### deleteById message
-DELETE  {{baseUrl}}/messages/17
+DELETE  {{baseUrl}}/messages/33
+Authorization: Bearer {{authToken}}
 
 
 ### USERS ###
