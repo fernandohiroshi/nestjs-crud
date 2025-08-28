@@ -14,6 +14,6 @@ import messagesConfig from './messages.config';
     UsersModule,
   ],
   controllers: [MessagesController],
-  providers: [MessagesService], // Is possible use useFactory in providers
+  providers: [MessagesService],
 })
 export class MessagesModule {}

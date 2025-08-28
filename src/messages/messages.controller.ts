@@ -13,9 +13,11 @@ import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { PaginationDto } from 'src/app/common/dto/pagination.dto';
-import { AuthTokenGuard } from 'src/auth/guards/auth-token.guard';
 import { TokenPayloadParam } from 'src/auth/params/token-payload.param';
 import { TokenPayloadDto } from 'src/auth/dto/token-payload.dto';
+import { SetRoutePolicy } from 'src/auth/decoratos/set-route-policy-decorator';
+import { RoutePolicies } from 'src/auth/enum/route-policies.enum';
+import { AuthAndPolicyGuard } from 'src/auth/guards/auth-and-policy.guard';
 
 @Controller('messages')
 export class MessagesController {
@@ -32,7 +34,8 @@ export class MessagesController {
     return this.messagesService.findById(id);
   }
 
-  @UseGuards(AuthTokenGuard)
+  @SetRoutePolicy(RoutePolicies.createMessage)
+  @UseGuards(AuthAndPolicyGuard)
   @Post()
   create(
     @Body() createMessageDto: CreateMessageDto,
@@ -41,7 +44,8 @@ export class MessagesController {
     return this.messagesService.create(createMessageDto, tokenPayload);
   }
 
-  @UseGuards(AuthTokenGuard)
+  @SetRoutePolicy(RoutePolicies.updateMessage)
+  @UseGuards(AuthAndPolicyGuard)
   @Patch(':id')
   update(
     @Param('id') id: number,
@@ -51,7 +55,8 @@ export class MessagesController {
     return this.messagesService.update(id, updateMessageDto, tokenPayload);
   }
 
-  @UseGuards(AuthTokenGuard)
+  @SetRoutePolicy(RoutePolicies.deleteMessage)
+  @UseGuards(AuthAndPolicyGuard)
   @Delete(':id')
   deleteById(
     @Param('id') id: number,

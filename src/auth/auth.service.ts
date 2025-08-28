@@ -26,6 +26,7 @@ export class AuthService {
   async login(loginDto: LoginDto) {
     const user = await this.userRepository.findOneBy({
       email: loginDto.email,
+      active: true,
     });
 
     if (!user) {
@@ -90,16 +91,19 @@ export class AuthService {
         this.jwtConfiguration,
       );
 
-      const user = await this.userRepository.findOneBy({ id: sub });
+      const user = await this.userRepository.findOneBy({
+        id: sub,
+        active: true,
+      });
 
       if (!user) {
-        throw new UnauthorizedException('invalid refresh token!');
+        throw new UnauthorizedException('invalid authentication!');
       }
 
       return this.createTokens(user);
     } catch (error) {
       console.error(error);
-      throw new UnauthorizedException('invalid refresh token!');
+      throw new UnauthorizedException('invalid authentication!');
     }
   }
 }

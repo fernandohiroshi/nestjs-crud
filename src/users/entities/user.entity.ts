@@ -1,4 +1,5 @@
 import { IsEmail } from 'class-validator';
+import { RoutePolicies } from 'src/auth/enum/route-policies.enum';
 import { MessageEntity } from 'src/messages/entities/message.entity';
 import {
   Column,
@@ -35,4 +36,10 @@ export class User {
 
   @OneToMany(() => MessageEntity, (message) => message.to)
   receivedMessages: MessageEntity[];
+
+  @Column({ default: true })
+  active: boolean;
+
+  @Column({ type: 'simple-array', default: [] })
+  routePolicies: RoutePolicies[];
 }
