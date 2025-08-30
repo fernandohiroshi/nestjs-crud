@@ -11,7 +11,6 @@ export class MyExceptionFilter<T extends BadRequestException>
 {
   catch(exception: T, host: ArgumentsHost) {
     const context = host.switchToHttp();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const response = context.getResponse();
 
     const statusCode = exception.getStatus();
@@ -24,7 +23,6 @@ export class MyExceptionFilter<T extends BadRequestException>
           }
         : (exceptionResponse as object);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     response.status(statusCode).json({
       ...err,
     });

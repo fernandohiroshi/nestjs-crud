@@ -14,7 +14,7 @@ GET {{baseUrl}}/messages
 
 
 ### findById message
-GET {{baseUrl}}/messages/52
+GET {{baseUrl}}/messages/51
 
 ### create message
 POST {{baseUrl}}/messages
@@ -27,17 +27,17 @@ Content-Type: application/json
   }
 
 ### update message
-PATCH {{baseUrl}}/messages/51
+PATCH {{baseUrl}}/messages/53
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
   {
-    "text": "BATMAN!!!",
+    "text": "BATMANllllllllllllllll!!!",
     "read": false
   }
 
 ### deleteById message
-DELETE  {{baseUrl}}/messages/52
+DELETE  {{baseUrl}}/messages/53
 Authorization: Bearer {{authToken}}
 
 
@@ -50,7 +50,7 @@ GET {{baseUrl}}/users
 Authorization: Bearer {{authToken}}
 
 ### findById user
-GET {{baseUrl}}/users/20
+GET {{baseUrl}}/users/29
 Authorization: Bearer {{authToken}}
 
 
@@ -59,23 +59,22 @@ POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
-  "name": "Sasuke", 
-  "email": "sasuke@gmail.com", 
-  "password": "123456",
-  "routePolicies": ["createMessage","findByIdMessage"]
+  "name": "Pitina", 
+  "email": "pitina@gmail.com", 
+  "password": "123456"
 }
 
 ### update user
-PATCH {{baseUrl}}/users/18
+PATCH {{baseUrl}}/users/29
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
   {
-    "name": "Patricia"
+    "name": "gata"
   }
 
 ### deleteById user
-DELETE  {{baseUrl}}/users/18
+DELETE  {{baseUrl}}/users/29
 Authorization: Bearer {{authToken}}
 
 
@@ -88,7 +87,7 @@ POST {{baseUrl}}/auth/
 Content-Type: application/json
 
 {
-  "email": "sasuke@gmail.com",
+  "email": "tati@gmail.com",
   "password": "123456"
 }
 
@@ -100,3 +99,21 @@ Content-Type: application/json
 {
   "refreshToken": "{{refreshToken}}"
 }
+
+
+### UPLOAD IMAGES ###
+
+POST {{baseUrl}}/users/upload-picture
+Authorization: Bearer {{authToken}}
+Content-Type: multipart/form-data; boundary=----BoundaryDelimitedHttp
+
+------BoundaryDelimitedHttp
+Content-Disposition: form-data; name="file"; filename="space002.jpg"
+Content-Type: image/jpg
+
+< ./images/space002.jpg
+------BoundaryDelimitedHttp--
+
+
+### GET PICTURES ###
+GET {{baseUrl}}/pictures/24.jpg

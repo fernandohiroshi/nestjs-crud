@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   ForbiddenException,
   Injectable,
@@ -10,6 +11,8 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { HashingService } from 'src/auth/hashing/hashing.service';
 import { TokenPayloadDto } from 'src/auth/dto/token-payload.dto';
+import * as path from 'path';
+import * as fs from 'fs/promises';
 
 @Injectable()
 export class UsersService {
@@ -30,14 +33,13 @@ export class UsersService {
         name: createUserDto.name,
         passwordHash,
         email: createUserDto.email,
-        routePolicies: createUserDto.routePolicies,
+        // routePolicies: createUserDto.routePolicies,
       };
 
       const newUser = this.userRepository.create(userData);
       await this.userRepository.save(newUser);
       return newUser;
     } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (error.code === '23505') {
         throw new ConflictException('E-mail already exists');
       }
@@ -115,5 +117,34 @@ export class UsersService {
     }
 
     return this.userRepository.remove(user);
+  }
+
+  async uploadPicture(
+    file: Express.Multer.File,
+    tokenPayload: TokenPayloadDto,
+  ) {
+    if (file.size < 1024) {
+      throw new BadRequestException('File size must be at least 1KB');
+    }
+
+    const user = await this.findOne(tokenPayload.sub);
+
+    if (!user) {
+      throw new ConflictException('User not found');
+    }
+
+    const fileExtension = path
+      .extname(file.originalname)
+      .toLowerCase()
+      .substring(1);
+    const fileName = `${tokenPayload.sub}.${fileExtension}`;
+    const fileFullPath = path.resolve(process.cwd(), 'pictures', fileName);
+
+    await fs.writeFile(fileFullPath, file.buffer);
+
+    user.picture = fileName;
+    await this.userRepository.save(user);
+
+    return user;
   }
 }

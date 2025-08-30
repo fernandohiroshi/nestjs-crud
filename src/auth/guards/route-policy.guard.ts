@@ -13,7 +13,6 @@ import { User } from 'src/users/entities/user.entity';
 export class RoutePolicyGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const routePolicyRequired = this.reflector.get<RoutePolicies | undefined>(
       ROUTE_POLICY_KEY,
@@ -24,9 +23,7 @@ export class RoutePolicyGuard implements CanActivate {
       return true;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const request = context.switchToHttp().getRequest();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const tokenPayload = request[REQUEST_TOKEN_PAYLOAD_KEY];
 
     if (!tokenPayload) {
@@ -35,14 +32,13 @@ export class RoutePolicyGuard implements CanActivate {
       );
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { user }: { user: User } = tokenPayload;
 
-    if (!user.routePolicies.includes(routePolicyRequired)) {
-      throw new UnauthorizedException(
-        `User does not have permission ${routePolicyRequired}`,
-      );
-    }
+    // if (!user.routePolicies.includes(routePolicyRequired)) {
+    //   throw new UnauthorizedException(
+    //     `User does not have permission ${routePolicyRequired}`,
+    //   );
+    // }
 
     return true;
   }

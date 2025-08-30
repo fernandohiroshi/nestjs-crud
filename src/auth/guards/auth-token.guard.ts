@@ -35,14 +35,12 @@ export class AuthTokenGuard implements CanActivate {
     }
 
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const payload = await this.jwtService.verifyAsync(
         token,
         this.jwtConfiguration,
       );
 
       const user = await this.userRepository.findOneBy({
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         id: payload.sub,
         active: true,
       });
@@ -51,13 +49,10 @@ export class AuthTokenGuard implements CanActivate {
         throw new UnauthorizedException('not logged in!');
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       payload['user'] = user;
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       request[REQUEST_TOKEN_PAYLOAD_KEY] = payload;
     } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       throw new UnauthorizedException(error.name);
     }
     return true;

@@ -11,9 +11,7 @@ export class SimpleCacheInterceptor implements NestInterceptor {
   private readonly cache = new Map();
 
   async intercept(context: ExecutionContext, next: CallHandler<any>) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const request = context.switchToHttp().getRequest();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const url = request.url;
 
     if ((this, this.cache.has(url))) {

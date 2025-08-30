@@ -9,7 +9,6 @@ import {
 export class PaserIntIdPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     if (metadata.type !== 'param' || metadata.data !== 'id') {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return value;
     }
 
