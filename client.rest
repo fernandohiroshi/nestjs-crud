@@ -50,7 +50,7 @@ GET {{baseUrl}}/users
 Authorization: Bearer {{authToken}}
 
 ### findById user
-GET {{baseUrl}}/users/29
+GET {{baseUrl}}/users/24
 Authorization: Bearer {{authToken}}
 
 
