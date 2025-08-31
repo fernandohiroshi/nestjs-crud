@@ -37,31 +37,31 @@ git clone <your-repo>.git
 cd nestjs-crud
 
 # Install dependencies
-npm install
+pnpm install
 ```
 
 ## Running the Project
 
 ```bash
 # Development environment
-npm run start:dev
+pnpm run start:dev
 
 # Production environment
-npm run build
-npm run start:prod
+pnpm run build
+pnpm run start:prod
 ```
 
 ## Testing
 
 ```bash
 # Unit tests
-npm test
+pnpm test
 
 # Test coverage
-npm run test:cov
+pnpm run test:cov
 
 # End-to-end tests
-npm run test:e2e
+pnpm run test:e2e
 ```
 
 ## Main Endpoints
