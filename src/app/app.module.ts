@@ -1,13 +1,15 @@
+import * as path from 'path';
+
 import { Module } from '@nestjs/common';
-import { MessagesModule } from '../messages/messages.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from '../users/users.module';
 import { ConfigModule, ConfigType } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
 import globalConfig from 'src/global-config/global-config';
 import { GlobalConfigModule } from 'src/global-config/global-config.module';
 import { AuthModule } from 'src/auth/auth.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import * as path from 'path';
+import { MessagesModule } from '../messages/messages.module';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   imports: [
