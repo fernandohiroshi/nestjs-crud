@@ -129,10 +129,6 @@ export class UsersService {
 
     const user = await this.findOne(tokenPayload.sub);
 
-    if (!user) {
-      throw new ConflictException('User not found');
-    }
-
     const fileExtension = path
       .extname(file.originalname)
       .toLowerCase()

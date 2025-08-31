@@ -108,10 +108,10 @@ Authorization: Bearer {{authToken}}
 Content-Type: multipart/form-data; boundary=----BoundaryDelimitedHttp
 
 ------BoundaryDelimitedHttp
-Content-Disposition: form-data; name="file"; filename="space002.jpg"
+Content-Disposition: form-data; name="file"; filename="space001.jpg"
 Content-Type: image/jpg
 
-< ./images/space002.jpg
+< ./images/space001.jpg
 ------BoundaryDelimitedHttp--
 
 
