@@ -14,30 +14,30 @@ GET {{baseUrl}}/messages
 
 
 ### findById message
-GET {{baseUrl}}/messages/51
+GET {{baseUrl}}/messages/101
 
 ### create message
 POST {{baseUrl}}/messages
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
-  {
-    "text": "go to SASUKkpokkpkpokokE!",
-    "toId": 13
-  }
+{
+  "text": "Hello, this is a test message!",
+  "toId": 7
+}
 
 ### update message
-PATCH {{baseUrl}}/messages/53
+PATCH {{baseUrl}}/messages/103
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
-  {
-    "text": "BATMANllllllllllllllll!!!",
-    "read": false
-  }
+{
+  "text": "Updated message content for testing.",
+  "read": true
+}
 
 ### deleteById message
-DELETE  {{baseUrl}}/messages/53
+DELETE {{baseUrl}}/messages/103
 Authorization: Bearer {{authToken}}
 
 
@@ -50,7 +50,7 @@ GET {{baseUrl}}/users
 Authorization: Bearer {{authToken}}
 
 ### findById user
-GET {{baseUrl}}/users/24
+GET {{baseUrl}}/users/42
 Authorization: Bearer {{authToken}}
 
 
@@ -59,22 +59,22 @@ POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
-  "name": "Pitina", 
-  "email": "pitina@gmail.com", 
-  "password": "123456"
+  "name": "John Doe", 
+  "email": "john.doe@example.com", 
+  "password": "password123"
 }
 
 ### update user
-PATCH {{baseUrl}}/users/29
+PATCH {{baseUrl}}/users/45
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
-  {
-    "name": "gata"
-  }
+{
+  "name": "Jane Doe"
+}
 
 ### deleteById user
-DELETE  {{baseUrl}}/users/29
+DELETE {{baseUrl}}/users/45
 Authorization: Bearer {{authToken}}
 
 
@@ -87,8 +87,8 @@ POST {{baseUrl}}/auth/
 Content-Type: application/json
 
 {
-  "email": "tati@gmail.com",
-  "password": "123456"
+  "email": "john.doe@example.com",
+  "password": "password123"
 }
 
 ### re-authentication
@@ -109,11 +109,11 @@ Content-Type: multipart/form-data; boundary=----BoundaryDelimitedHttp
 
 ------BoundaryDelimitedHttp
 Content-Disposition: form-data; name="file"; filename="space001.jpg"
-Content-Type: image/jpg
+Content-Type: image/jpeg
 
 < ./images/space001.jpg
 ------BoundaryDelimitedHttp--
 
 
 ### GET PICTURES ###
-GET {{baseUrl}}/pictures/24.jpg
+GET {{baseUrl}}/pictures/24.jpg 

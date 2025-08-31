@@ -1,10 +1,9 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { Request } from 'express';
 
-export const ReqDataParam = createParamDecorator(
+export const ReqDataParam: any = createParamDecorator(
   (data: keyof Request, ctx: ExecutionContext) => {
-    const context = ctx.switchToHttp();
-    const request: Request = context.getRequest();
+    const request = ctx.switchToHttp().getRequest<Request>();
     return request[data];
   },
 );
