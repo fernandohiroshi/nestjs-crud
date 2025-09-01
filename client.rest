@@ -116,4 +116,4 @@ Content-Type: image/jpeg
 
 
 ### GET PICTURES ###
-GET {{baseUrl}}/pictures/24.jpg 
+GET {{baseUrl}}/pictures/40.jpg 
