@@ -14,7 +14,7 @@ GET {{baseUrl}}/messages
 
 
 ### findById message
-GET {{baseUrl}}/messages/101
+GET {{baseUrl}}/messages/54
 
 ### create message
 POST {{baseUrl}}/messages
@@ -23,11 +23,11 @@ Content-Type: application/json
 
 {
   "text": "Hello, this is a test message!",
-  "toId": 7
+  "toId": 39
 }
 
 ### update message
-PATCH {{baseUrl}}/messages/103
+PATCH {{baseUrl}}/messages/54
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
@@ -65,7 +65,7 @@ Content-Type: application/json
 }
 
 ### update user
-PATCH {{baseUrl}}/users/45
+PATCH {{baseUrl}}/users/38
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
